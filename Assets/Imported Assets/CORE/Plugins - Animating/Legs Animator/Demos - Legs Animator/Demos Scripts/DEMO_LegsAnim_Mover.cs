@@ -81,23 +81,23 @@ namespace FIMSpace.FProceduralAnimation
         {
             if (Rigb == null) return;
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (toJump <= 0f)
-                {
-                    jumpRequest = JumpPower;
-
-                    if (CallImpulseOn != null)
-                    {
-                        toJump = ImpulseBeforeJump.ImpulseDuration * 0.6f;
-                        CallImpulseOn.User_AddImpulse(ImpulseBeforeJump);
-                    }
-                    else
-                    {
-                        toJump = 0f;
-                    }
-                }
-            }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     if (toJump <= 0f)
+            //     {
+            //         jumpRequest = JumpPower;
+            //
+            //         if (CallImpulseOn != null)
+            //         {
+            //             toJump = ImpulseBeforeJump.ImpulseDuration * 0.6f;
+            //             CallImpulseOn.User_AddImpulse(ImpulseBeforeJump);
+            //         }
+            //         else
+            //         {
+            //             toJump = 0f;
+            //         }
+            //     }
+            // }
 
             moveDirectionLocal = Vector2.zero;
 

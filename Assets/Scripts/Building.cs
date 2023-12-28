@@ -5,14 +5,17 @@ using NaughtyAttributes;
 using Triggers;
 using UnityEditor;
 using UnityEngine;
+using YG;
 using Zenject;
 
-[CanEditMultipleObjects]
-public class Building : MonoBehaviour
+public class Building : MonoYandex
 {
+    [Inject] private GameSaver _saver;
     [Inject] private MoneyGenerator _generator;
     [Inject] private Player _player;
-    
+
+    [ReadOnly]
+    public string UUID = "";
     public string Name = "Дом";
     public int Price = 0;
     public float Bonus = 1;
@@ -22,15 +25,25 @@ public class Building : MonoBehaviour
     private BuildingTrigger _trigger;
 
     public Action OnBuild;
+    public bool IsBuilt = false;
 
     [SerializeField] private List<Building> _dependencies;
+    [SerializeField] private List<GameObject> _citizens;
 
     [Foldout("Advanced")]
     [SerializeField] private float _buildTime = 0.7f;
 
     private int _dependenciesBuilt = 0;
     private Vector3 _defaultScale;
-    
+
+    private void OnValidate()
+    {
+        if (UUID == "")
+        {
+            UUID = Guid.NewGuid().ToString();
+        }
+    }
+
     private void Awake()
     {
         _trigger = GetComponentInChildren<BuildingTrigger>();
@@ -38,16 +51,27 @@ public class Building : MonoBehaviour
         
         _defaultScale = Object.localScale;
         Object.localScale = Vector3.zero;
+        _citizens.ForEach(c => c.SetActive(false));
+    }
+
+    protected override void OnSDK()
+    {
+        if (YandexGame.savesData.buildings.Contains(UUID))
+        {
+            Build(false);
+        }
         UpdateAvailable();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _dependencies.ForEach(dep => dep.OnBuild += OnDependencyBuild);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         _dependencies.ForEach(dep => dep.OnBuild -= OnDependencyBuild);
     }
 
@@ -59,7 +83,7 @@ public class Building : MonoBehaviour
 
     private void UpdateAvailable()
     {
-        bool isAvailable = _dependenciesBuilt == _dependencies.Count;
+        bool isAvailable = !IsBuilt && _dependenciesBuilt == _dependencies.Count;
         
         Mockup.gameObject.SetActive(isAvailable);
         if (_trigger != null) _trigger.gameObject.SetActive(isAvailable);
@@ -72,19 +96,27 @@ public class Building : MonoBehaviour
     
     public bool TryBuild()
     {
-        if (!IsMoneyEnough()) return false;
+        if (IsBuilt || !IsMoneyEnough()) return false;
         Build();
         return true;
     }
     
     [Button]
-    private void Build()
+    private void Build(bool save = true)
     {
+        _citizens.ForEach(c => c.SetActive(true));
         _player.Wallet.TryRemoveMoney(Price);
         _generator.AddMoneyPerSecond(Bonus);
         Object.transform.DOScale(_defaultScale, _buildTime);
         Mockup.material.DOFade(0, _buildTime);
-        
+
+        if (save && !YandexGame.savesData.buildings.Contains(UUID))
+        {
+            YandexGame.savesData.buildings.Add(UUID);
+            _saver.TrySave();   
+        }
+
+        IsBuilt = true;
         OnBuild?.Invoke();
     }
 

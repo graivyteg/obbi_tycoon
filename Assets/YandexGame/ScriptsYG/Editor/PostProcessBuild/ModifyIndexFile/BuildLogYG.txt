@@ -1,2 +1,2 @@
-Build path: G:/New Tookon/WEB
-Build number: 148
+Build path: /Users/vladislavrykunov/Desktop/Unity/New Tookon/Builds/obby_tycoon
+Build number: 152

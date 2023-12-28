@@ -6,10 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Imported Assets/BUILDING/Low Poly Ultimate Pack/01 - All Models.unity
-    guid: 4259eda1b3dbc2c44bf45cc4786cc4c6
+    path: Assets/Scenes/Map 3.unity
+    guid: d42180c99b59c4030be62b00c26792c7
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

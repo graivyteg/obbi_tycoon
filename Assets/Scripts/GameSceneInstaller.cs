@@ -7,6 +7,7 @@ public class GameSceneInstaller : MonoInstaller
     [SerializeField] private Player _player;
     public override void InstallBindings()
     {
+        Container.BindInterfacesAndSelfTo<GameSaver>().FromNew().AsSingle();
         Container.Bind<Camera>().FromInstance(_mainCamera);
         Container.Bind<Player>().FromInstance(_player);
         Container.BindInterfacesAndSelfTo<MoneyGenerator>().AsSingle().NonLazy();
