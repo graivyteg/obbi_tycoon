@@ -87,6 +87,7 @@ namespace FIMSpace.Basics
                 if (Cursor.lockState == CursorLockMode.Locked)
                 {
                     float sensitivity = ((Screen.width + Screen.height) / 2f) * 0.02f * DefaultMouseSensitivity;
+                    sensitivity *= YandexGame.savesData.sensitivityMultiplier;
                     targetSphericalRot.x -= Input.GetAxis("Mouse Y") * sensitivity;
                     targetSphericalRot.y += Input.GetAxis("Mouse X") * sensitivity;
                 }
@@ -96,6 +97,7 @@ namespace FIMSpace.Basics
                 if (Input.GetMouseButton(1) || Input.GetMouseButton(2))
                 {
                     float sensitivity = ((Screen.width + Screen.height) / 2f) * 0.02f * DefaultMouseSensitivity;
+                    sensitivity *= YandexGame.savesData.sensitivityMultiplier;
                     targetSphericalRot.x -= Input.GetAxis("Mouse Y") * sensitivity;
                     targetSphericalRot.y += Input.GetAxis("Mouse X") * sensitivity;
                 }
@@ -109,8 +111,9 @@ namespace FIMSpace.Basics
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             
-            targetSphericalRot.x -= joystickInput.Direction.y * DefaultJoystickSensitivity;
-            targetSphericalRot.y += joystickInput.Direction.x * DefaultJoystickSensitivity;
+            float sensitivity = DefaultJoystickSensitivity * YandexGame.savesData.sensitivityMultiplier;
+            targetSphericalRot.x -= joystickInput.Direction.y * sensitivity;
+            targetSphericalRot.y += joystickInput.Direction.x * sensitivity;
 
             targetSphericalRot.x = Mathf.Clamp(targetSphericalRot.x, VerticalClamp.x, VerticalClamp.y);
         }
@@ -125,8 +128,7 @@ namespace FIMSpace.Basics
             }
             else
             {
-                float lerpFactor = Mathf.Lerp(0.2f, 0.005f, RotationSpeed);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lerpFactor);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, RotationSpeed);
             }
         }
 

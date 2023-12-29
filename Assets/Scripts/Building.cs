@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Audio;
 using DG.Tweening;
 using NaughtyAttributes;
 using Triggers;
@@ -10,6 +11,7 @@ using Zenject;
 
 public class Building : MonoYandex
 {
+    [Inject] private SoundController _soundController;
     [Inject] private GameSaver _saver;
     [Inject] private MoneyGenerator _generator;
     [Inject] private Player _player;
@@ -114,6 +116,7 @@ public class Building : MonoYandex
         {
             YandexGame.savesData.buildings.Add(UUID);
             _saver.TrySave();   
+            _soundController.PlaySound(SoundController.SoundType.Build);
         }
 
         IsBuilt = true;

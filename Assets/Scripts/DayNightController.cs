@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using YG;
 
 public class DayNightController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class DayNightController : MonoBehaviour
 
     private void Update()
     {
+        if (!YandexGame.savesData.isDaytimeOn) return;
+        
         _timer += Mathf.Min(Time.deltaTime, _dayLength - _timer);
 
         if (_timer >= _dayLength)

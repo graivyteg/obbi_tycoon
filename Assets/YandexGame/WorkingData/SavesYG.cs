@@ -17,6 +17,14 @@ namespace YG
         public int money = 1;                       // Можно задать полям значения по умолчанию
         public List<string> buildings = new List<string>();
 
+        public float sensitivityMultiplier = 1;
+        public bool isMusicOn = true;
+        public bool isSoundOn = true;
+        public bool areCitizensOn = true;
+        public bool isDaytimeOn = true;
+
+        public int Record = 0;
+
         public SavesYG()
         {
         }

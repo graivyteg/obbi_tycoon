@@ -26,7 +26,7 @@ public class FPSDisplay : MonoBehaviour
         {
             float fps = accum / frames;
             int roundedFPS = Mathf.RoundToInt(fps); // ��������� FPS �� ���������� ������ �����
-            string fpsText = string.Format("{0} ���", roundedFPS);
+            string fpsText = string.Format("{0} ФПС", roundedFPS);
             textMeshPro.text = fpsText;
 
             timeleft = updateInterval;
