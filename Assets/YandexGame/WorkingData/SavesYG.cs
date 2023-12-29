@@ -22,6 +22,7 @@ namespace YG
         public bool isSoundOn = true;
         public bool areCitizensOn = true;
         public bool isDaytimeOn = true;
+        public bool tutorialCompleted = false;
 
         public int Record = 0;
 

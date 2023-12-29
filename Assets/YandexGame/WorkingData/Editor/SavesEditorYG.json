@@ -1,9 +1,9 @@
 {
-    "idSave": 55,
+    "idSave": 129,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
-    "money": 857,
+    "money": 687,
     "buildings": [
         "cc4a9842-19c4-49ce-8616-42a5a1a108b6",
         "cde4c960-2d54-4fa8-a848-f21bd939b83f",
@@ -20,12 +20,22 @@
         "45189b58-0179-454d-978b-1db2a590d2b9",
         "e5865fb1-1522-4b44-83a6-7d33c5eb132b",
         "ef038588-446e-474f-9346-70cbbaaed7e7",
-        "8a19de82-ea7b-4f29-b530-185829c54f75"
+        "8a19de82-ea7b-4f29-b530-185829c54f75",
+        "7fd44ecf-dae5-4122-9c5c-8e4d456b5f32",
+        "132e4a87-fc91-48ed-b0e1-ac465d3feda8",
+        "c93bdaaf-f592-44e5-be99-309bb39c1a73",
+        "0d939b72-0b7c-4978-bde0-a4c75fdb4ef2",
+        "2ec5a38f-374f-4ddc-890a-743295a4fb93",
+        "f955a72e-f282-49f8-8f76-1469bf9ca08e",
+        "1a4ac4ee-51ae-4632-8231-e7ad8e05f14b",
+        "388471c4-6d3d-47ac-8aac-5961ed8feb4e",
+        "8dff7c61-5336-4bff-b291-79f8d27f7e6f"
     ],
-    "sensitivityMultiplier": 1.0,
+    "sensitivityMultiplier": 3.0,
     "isMusicOn": true,
     "isSoundOn": true,
     "areCitizensOn": true,
     "isDaytimeOn": true,
+    "tutorialCompleted": true,
     "Record": 0
 }

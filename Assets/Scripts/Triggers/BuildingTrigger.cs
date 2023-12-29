@@ -7,6 +7,7 @@ namespace Triggers
     [RequireComponent(typeof(Renderer))]
     public class BuildingTrigger : BasePlayerTrigger
     {
+        [SerializeField] private ParticleSystem _particle;
         [Foldout("Advanced")]
         [SerializeField] private float _delay = 0.3f;
         
@@ -42,7 +43,16 @@ namespace Triggers
             _timer += Time.deltaTime;
             if (_timer < _delay) return;
 
-            if (_building.TryBuild()) OnBuild();
+            if (_building.TryBuild())
+            {
+                if (_particle != null)
+                {
+                    _particle.transform.parent = null;
+                    _particle.gameObject.SetActive(true);
+                    _particle.Play();   
+                }
+                OnBuild();
+            }
         }
 
         private void OnBuild()
