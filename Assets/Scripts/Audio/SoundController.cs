@@ -19,7 +19,7 @@ namespace Audio
         
         private AudioSource _source;
 
-        private void Start()
+        private void Awake()
         {
             _source = GetComponent<AudioSource>();
         }

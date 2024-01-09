@@ -18,7 +18,7 @@ namespace NaughtyAttributes
         Playmode
     }
 
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class ButtonAttribute : SpecialCaseDrawerAttribute
     {
         public string Text { get; private set; }

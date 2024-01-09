@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1194fe37bf4c3893c0dff74dc42ab8, type: 3}
   m_Name: Global Settings
   m_EditorClassIdentifier: 
-  ForceMobile: 0
+  ForceMobile: 1

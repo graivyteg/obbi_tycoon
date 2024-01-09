@@ -30,7 +30,7 @@ public class GameSaver : ITickable
         }
 
         _shouldSave = false;
-        _yandex._SaveProgress();
+        YandexGame.SaveProgress();
         Debug.Log("Game successfully saved");
     }
 }

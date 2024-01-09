@@ -14,7 +14,7 @@ namespace YG
 
         // Тестовые сохранения для демо сцены
         // Можно удалить этот код, но тогда удалите и демо (папка Example)
-        public int money = 1;                       // Можно задать полям значения по умолчанию
+        public int level = 0;
         public List<string> buildings = new List<string>();
 
         public float sensitivityMultiplier = 1;

@@ -21,7 +21,7 @@ namespace YG.Example
 
         public void Save()
         {
-            YandexGame.savesData.money = int.Parse(integerText.text);
+            //YandexGame.savesData.money = int.Parse(integerText.text);
            // YandexGame.savesData.newPlayerName = stringifyText.text.ToString();
 
             //for (int i = 0; i < booleanArrayToggle.Length; i++)

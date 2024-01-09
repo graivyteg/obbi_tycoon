@@ -4,7 +4,6 @@ using Audio;
 using DG.Tweening;
 using NaughtyAttributes;
 using Triggers;
-using UnityEditor;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -22,21 +21,30 @@ public class Building : MonoYandex
     public int Price = 0;
     public float Bonus = 1;
     
+    [Space]
     public Transform Object;
     public MeshRenderer Mockup;
-    private BuildingTrigger _trigger;
-
+    public BuildingTrigger Trigger;
+    
+    [Space]
     public Action OnBuild;
-    public bool IsBuilt = false;
+    public Action<bool> OnAvailableUpdate;
+    [ReadOnly] public bool IsBuilt = false;
+    [ReadOnly] public bool IsAvailable = false;
 
     [SerializeField] private List<Building> _dependencies;
     [SerializeField] private List<GameObject> _citizens;
+    [SerializeField] private List<MeshRenderer> _children = new();
 
+    [SerializeField] private Material _mockupMaterial;
     [Foldout("Advanced")]
     [SerializeField] private float _buildTime = 0.7f;
 
     private int _dependenciesBuilt = 0;
     private Vector3 _defaultScale;
+
+    private float _dependencyTimer = 0;
+    private const float DependencyUpdateTime = 1f; 
 
     private void OnValidate()
     {
@@ -48,8 +56,8 @@ public class Building : MonoYandex
 
     private void Awake()
     {
-        _trigger = GetComponentInChildren<BuildingTrigger>();
-        _trigger.Initialize(this);
+        Trigger = GetComponentInChildren<BuildingTrigger>();
+        Trigger.Initialize(this);
         
         _defaultScale = Object.localScale;
         Object.localScale = Vector3.zero;
@@ -65,30 +73,40 @@ public class Building : MonoYandex
         UpdateAvailable();
     }
 
+    private void Update()
+    {
+        _dependencyTimer -= Time.deltaTime;
+        if (_dependencyTimer <= 0)
+        {
+            _dependencyTimer = DependencyUpdateTime;
+            UpdateAvailable();
+        }
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
-        _dependencies.ForEach(dep => dep.OnBuild += OnDependencyBuild);
+        _dependencies.ForEach(dep => dep.OnBuild += UpdateAvailable);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        _dependencies.ForEach(dep => dep.OnBuild -= OnDependencyBuild);
+        _dependencies.ForEach(dep => dep.OnBuild -= UpdateAvailable);
     }
-
-    private void OnDependencyBuild()
-    {
-        _dependenciesBuilt++;
-        UpdateAvailable();
-    }
-
     private void UpdateAvailable()
     {
-        bool isAvailable = !IsBuilt && _dependenciesBuilt == _dependencies.Count;
+        _dependenciesBuilt = 0;
+        foreach (var dependency in _dependencies)
+        {
+            if (dependency.IsBuilt) _dependenciesBuilt++;
+        }
         
-        Mockup.gameObject.SetActive(isAvailable);
-        if (_trigger != null) _trigger.gameObject.SetActive(isAvailable);
+        IsAvailable = !IsBuilt && _dependenciesBuilt == _dependencies.Count;
+
+        Mockup.gameObject.SetActive(IsAvailable);
+        OnAvailableUpdate?.Invoke(IsAvailable);
+        if (Trigger != null) Trigger.gameObject.SetActive(IsAvailable);
     }
 
     public bool IsMoneyEnough()
@@ -110,7 +128,12 @@ public class Building : MonoYandex
         _player.Wallet.TryRemoveMoney(Price);
         _generator.AddMoneyPerSecond(Bonus);
         Object.transform.DOScale(_defaultScale, _buildTime);
-        Mockup.material.DOFade(0, _buildTime);
+
+        foreach (var mockupMaterial in Mockup.materials)
+        {
+            mockupMaterial.DOFade(0, _buildTime);
+        }
+        Mockup.transform.DOScale(Vector3.zero, _buildTime);
 
         if (save && !YandexGame.savesData.buildings.Contains(UUID))
         {
@@ -123,27 +146,45 @@ public class Building : MonoYandex
         OnBuild?.Invoke();
     }
 
-    // [Button]
-    // private void CreateBuildingFromMesh()
-    // {
-    //     var parent = new GameObject(name);
-    //     parent.transform.parent = transform.parent;
-    //     transform.parent = parent.transform;
-    //
-    //     var trigger = GetComponentInChildren<BuildingTrigger>().gameObject;
-    //     trigger.transform.parent = parent.transform;
-    //
-    //     var building = parent.AddComponent<Building>();
-    //     building.Object = transform;
-    //
-    //     var mockup = Instantiate(gameObject, parent.transform);
-    //     building.Mockup = mockup.GetComponent<MeshRenderer>();
-    //     building.Mockup.material = _mockupMaterial;
-    //
-    //     name = "Object";
-    //     mockup.name = "Mockup";
-    //     trigger.name = "Trigger";
-    //
-    //     DestroyImmediate(this);
-    // }
+    [Button]
+    private void CreateFromMesh()
+    {
+        var parent = new GameObject(name);
+        parent.transform.parent = transform.parent;
+        transform.parent = parent.transform;
+    
+        var trigger = GetComponentInChildren<BuildingTrigger>();
+        trigger.transform.parent = parent.transform;
+        var building = parent.AddComponent<Building>();
+        building.Object = transform;
+        building.Trigger = trigger;
+
+        var mockup = Instantiate(gameObject, parent.transform);
+        var mockupMaterial = Resources.Load<Material>("Mockup Material");
+        building.Mockup = mockup.GetComponent<MeshRenderer>();
+        building.Mockup.material = mockupMaterial;
+
+        if (_children.Count > 0)
+        {
+            var childrenParent = new GameObject("Children");
+            childrenParent.transform.parent = parent.transform;
+            foreach (var child in _children)
+            {
+                child.transform.parent = childrenParent.transform;
+                child.gameObject.AddComponent<BuildingChild>();
+            }
+        }
+
+        name = "Object";
+        mockup.name = "Mockup";
+        trigger.name = "Trigger";
+    
+        DestroyImmediate(this);
+    }
+
+    [Button]
+    private void InitTrigger()
+    {
+        Trigger = GetComponentInChildren<BuildingTrigger>();
+    }
 }
