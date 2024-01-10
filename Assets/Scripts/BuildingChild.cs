@@ -67,11 +67,14 @@ public class BuildingChild : MonoBehaviour
     {
         var mockup = Instantiate(gameObject, transform.position, transform.rotation, transform.parent);
         mockup.name = $"[Mockup] {name}";
-        UnityEditor.EditorApplication.delayCall+=()=>
+        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.delayCall += () =>
         {
             DestroyImmediate(mockup.GetComponent<BuildingChild>());
         };
-        
+#endif
+
         var mesh = mockup.GetComponent<MeshRenderer>();
         mesh.material = Resources.Load<Material>("Mockup Material");;
 
