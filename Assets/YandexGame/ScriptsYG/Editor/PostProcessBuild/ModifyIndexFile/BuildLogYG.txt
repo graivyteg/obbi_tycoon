@@ -1,2 +1,2 @@
 Build path: /Users/vladislavrykunov/Desktop/Unity/New Tookon/Builds/obby_tycoon_mobile
-Build number: 167
+Build number: 169
