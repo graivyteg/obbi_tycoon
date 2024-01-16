@@ -1,8 +1,12 @@
 {
-    "idSave": 864,
+    "idSave": 157,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
+    "money": [
+        871780,
+        9
+    ],
     "level": 1,
     "buildings": [
         "78a818b0-224d-4edb-a09f-bcd4e92f098f",
@@ -36,26 +40,16 @@
         "48084289-0d76-4d61-842d-6d10fa10acc6",
         "c084d10a-6c8c-41d8-9283-492388c2ad75",
         "145e70d5-c832-4e45-8939-bf2661b04c22",
-        "8bb28ade-0b3d-40a8-abd4-c6ef103bd843",
         "253902b1-f2ee-480c-b5f2-c8df1a1db8f7",
+        "8bb28ade-0b3d-40a8-abd4-c6ef103bd843",
         "18fc2980-83aa-41ba-83bf-a1f95d957f0f",
         "134fba18-2f4d-46f4-9603-26e365a65796",
         "78c5e17f-af29-4760-aef8-61bba03ab716",
-        "2a3afe8e-2d5c-4ffa-98a1-f5f83ef809a3",
         "0862c63e-7afa-4fcd-b52f-af09cf50afc8",
+        "2a3afe8e-2d5c-4ffa-98a1-f5f83ef809a3",
         "dca5a45e-e959-4d07-bd7f-dafe72be54c0",
         "86c07316-ebf2-4d3d-8aad-9fb537f528a8",
-        "ef9781a1-7864-473c-9efe-389b09f8b04b",
-        "cc4a9842-19c4-49ce-8616-42a5a1a108b6",
-        "cde4c960-2d54-4fa8-a848-f21bd939b83f",
-        "a858c8a0-024d-47be-aafa-bbba23d5f97b",
-        "aca06d5e-f5e4-48d4-a551-976976bfa022",
-        "ab6f0ecf-6f92-4a17-9de2-1a7953d38a69",
-        "c3fa1683-32ae-43ad-84bc-376027be3d17",
-        "55bb248e-2b18-4f8c-b480-fcaee3f2b59b",
-        "31a3dcdb-e0c4-497b-93b8-3e4fc149f889",
-        "37caa841-5dbf-455c-b4f2-9524185a6ef5",
-        "2cc31313-94c7-4438-bde4-e4b4c62f26c2"
+        "ef9781a1-7864-473c-9efe-389b09f8b04b"
     ],
     "sensitivityMultiplier": 1.0,
     "isMusicOn": true,
@@ -63,5 +57,5 @@
     "areCitizensOn": true,
     "isDaytimeOn": true,
     "tutorialCompleted": true,
-    "Record": 261104
+    "Record": 872580
 }

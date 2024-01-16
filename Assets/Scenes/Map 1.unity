@@ -66522,7 +66522,7 @@ Transform:
   m_GameObject: {fileID: 1946373008}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000029653306}
-  m_LocalPosition: {x: 41.109833, y: 0, z: 19.890001}
+  m_LocalPosition: {x: 38.33, y: 0, z: 22.96}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -67386,7 +67386,7 @@ MonoBehaviour:
   AnimationFloorLevel: 0.001
   _Editor_Foldout_Setup_LegsList: 1
   _Editor_EnsureCount: 1
-  _Editor_OnValidateTrigger: 1
+  _Editor_OnValidateTrigger: 0
   _EditorAllowAutoUpdateFeetParams: 1
   _EditorCategory: 2
   _EditorSetupCategory: 0

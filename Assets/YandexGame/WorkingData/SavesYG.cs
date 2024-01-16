@@ -14,6 +14,7 @@ namespace YG
 
         // Тестовые сохранения для демо сцены
         // Можно удалить этот код, но тогда удалите и демо (папка Example)
+        public List<int> money = new List<int> {0, 0};
         public int level = 0;
         public List<string> buildings = new List<string>();
 

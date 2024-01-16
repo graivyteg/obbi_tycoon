@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class Wallet
 {
@@ -11,6 +12,7 @@ public class Wallet
     public Wallet(int amount = 0)
     {
         _money = amount;
+        OnBalanceChanged += value => Debug.Log(value);
     }
 
     public void AddMoney(int amount)
